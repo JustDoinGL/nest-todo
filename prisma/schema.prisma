@@ -21,6 +21,9 @@ model Task {
   description String?
   status      TaskStatusEnum @default(new)
 
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -30,8 +33,10 @@ model Task {
 model User {
   id Int @id @default(autoincrement())
 
-  email          String @unique
+  email          String  @unique
   hashedPassword String? @map("hashed_password")
+
+  task Task[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

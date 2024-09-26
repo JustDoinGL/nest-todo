@@ -6,10 +6,17 @@ import { JwtModule } from "@nestjs/jwt";
 import { LocaleStrategy } from "./strategies/local.strategy";
 import { JwtRefreshStrategy } from "./strategies/jwt-refresh.strategy";
 import { GoogleStrategy } from "./strategies/google.strategy";
+import { JwtAssetsStrategy } from "./strategies/jwt-assets.strategy";
 
 @Module({
 	imports: [UsersModule, JwtModule.register({})],
 	controllers: [AuthController],
-	providers: [AuthService, LocaleStrategy, JwtRefreshStrategy, GoogleStrategy]
+	providers: [
+		AuthService,
+		LocaleStrategy,
+		JwtRefreshStrategy,
+		GoogleStrategy,
+		JwtAssetsStrategy
+	]
 })
 export class AuthModule {}
