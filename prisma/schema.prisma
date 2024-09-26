@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TaskStatusEnum {
+  new
+  doing
+  comleted
+  closed
+}
+
+model Task {
+  id Int @id @default(autoincrement())
+
+  title       String
+  description String?
+  status      TaskStatusEnum @default(new)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tasks")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  email          String @unique
+  hashedPassword String? @map("hashed_password")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
